@@ -1,6 +1,10 @@
 #pragma once
 
 #include <Arduino.h>
+#include "lib/types.h"
+
+
+#define CALIBRATION_PASSES 10000
 
 
 
@@ -10,5 +14,8 @@
 #define TEMP_OUT_H 		0x41
 
 
+void mpu_init(int device_adr);
 void mpu_readGyro(int device_adr, axis_int16_t *gyro_data);
-void mpu_readAccel(int device_adr, axis_int16_t *accel);
+void mpu_readAccel(int device_adr, axis_int16_t *accel_data);
+void mpu_calibrateGyro(int device_adr, axis_float_t *offset);
+void mpu_calibrateAccel(int device_adr, axis_float_t *offset);
