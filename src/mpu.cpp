@@ -51,6 +51,7 @@ void mpu_readAccel(int device_adr, axis_int16_t *accel_data) {
 void mpu_calibrateGyro(int device_adr, axis_float_t *offset) {
 	axis_int16_t gyro_raw;
 	axis_float_t gyro_sum;
+	axis_float_t gyro_offset;
 
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readGyro(device_adr, &gyro_raw);
@@ -59,12 +60,18 @@ void mpu_calibrateGyro(int device_adr, axis_float_t *offset) {
 		gyro_sum.z += gyro_raw.z;
 	}
 
+	offset->x = gyro_sum.x / CALIBRATION_PASSES;
+	offset->y = gyro_sum.y / CALIBRATION_PASSES;
+	offset->z = gyro_sum.z / CALIBRATION_PASSES;
+
 	Serial.println("Gyro-Calibration finished.");
 }
+
 
 void mpu_calibrateAccel(int device_adr, axis_float_t *offset) {
 	axis_int16_t accel_raw;
 	axis_float_t accel_sum;
+	
 	
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readAccel(device_adr, &accel_raw);
@@ -72,6 +79,10 @@ void mpu_calibrateAccel(int device_adr, axis_float_t *offset) {
 		accel_sum.y += accel_raw.y;
 		accel_sum.z += accel_raw.z;
 	}
+
+	offset->x = accel_sum.x / CALIBRATION_PASSES;
+	offset->y = accel_sum.y / CALIBRATION_PASSES;
+	offset->z = accel_sum.z / CALIBRATION_PASSES;	
 	
 	Serial.println("Accel-Calibration finished.");
 }

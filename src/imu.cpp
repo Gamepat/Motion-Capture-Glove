@@ -10,8 +10,18 @@
 axis_int16_t gyro_raw;
 axis_int16_t accel_raw;
 
-float gyro_dt;
-float dt;
+axis_int16_t gyro_offset;
+axis_int16_t accel_offset;
+
+axis_float_t rates;
+axis_float_t accel;
+
+axis_float_t accel_angles;
+
+axis_float_t angles;
+
+
+float last_update = 0.0;
 
 
 
@@ -28,9 +38,30 @@ void readAccel() {
 }
 
 
-
-
-
 void processGyro() {
+	rates.x = (float)(gyro_raw.x - gyro_offset.x) / GYRO_250D_SENS;
+	rates.y = (float)(gyro_raw.y - gyro_offset.y) / GYRO_250D_SENS;
+	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_250D_SENS;
+}
 
+void processAccel() {
+	accel.x = (float)(accel_raw.x - accel_offset.x) / ACCEL_2G_SENS;
+	accel.y = (float)(accel_raw.y - accel_offset.y) / ACCEL_2G_SENS;
+	accel.z = (float)(accel_raw.z - accel_offset.z) / ACCEL_2G_SENS;
+}
+
+
+void calculateAngles() {
+
+	// TODO: Replace this with the Madgwick-Algorithm
+
+	float dt = (float)((micros() - last_update) / 1000000);
+	last_update = micros();
+
+	accel_angles.x = atan2(accel.y, accel.z) * RAD_TO_DEG;
+	accel_angles.y = atan2(-1 * accel.x, sqrt(accel.y * accel.y + accel.z * accel.z)) * RAD_TO_DEG;
+
+	angles.x = GYRO_PART * (angles.x + (rates.x * dt)) + ACCEL_PART *accel_angles.x;
+	angles.y = GYRO_PART * (angles.y + (rates.y * dt)) + ACCEL_PART *accel_angles.y;
+	//angles.z = GYRO_PART * (angles.z + (rates.z * dt)) + ACCEL_PART *accel_angles.z;		//FIXME
 }
