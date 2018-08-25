@@ -1,0 +1,32 @@
+TODO-File for the µC-Program of the sensorglove
+
+TODOs:
+
+- Flex-Sensors
+  * [ ] Read flex-sensor values
+  * [ ] Map sensor values to get the range more clearly
+
+- IMU
+
+  * [ ] Set resolution
+  * [ ] Read gyroscope and accelerometer values
+  
+  * [ ] Calculate offsets
+  
+  * [ ] Calculate values in °/s for gyroscope
+  
+  * [ ] Calculate angles
+
+
+* [ ] Sort the measured values and prepare to send
+
+* [ ] Send values over Serial
+
+
+
+
+Optional TODOs:
+
+* [ ] Get battery state to warn when battery gets low
+
+* [ ] Measure program runtime
