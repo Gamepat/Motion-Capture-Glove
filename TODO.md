@@ -9,13 +9,16 @@
 - IMU
 
   * [ ] Set resolution
-  * [ ] Read gyroscope and accelerometer values
+
+  * [X] ~~*Read gyroscope and accelerometer values*~~ [2018-08-25]
   
   * [ ] Calculate offsets
   
-  * [ ] Calculate values in °/s for gyroscope
+  * [X] ~~*Calculate values in °/s for gyroscope*~~ [2018-08-25]
   
-  * [ ] Calculate angles
+  * [X] ~~*Calculate angles*~~ [2018-08-25]
+
+  * [ ] Replace current angle calculations with the Madgwick-algorithm 
 
 
 * [ ] Sort the measured values and prepare to send
@@ -23,10 +26,10 @@
 * [ ] Send values over Serial
 
 
-
+---
 
 ### Optional TODOs:
 
-* [ ] Get battery state to warn when battery gets low
+* [ ] Get battery status to warn when battery gets low
 
 * [ ] Measure program runtime
