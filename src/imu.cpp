@@ -26,8 +26,11 @@ float last_update = 0.0;
 
 
 void imuInit() {
-	
+	mpu_init(MPU_ADR_1);
+	mpu_calibrateGyro(MPU_ADR_1, &gyro_offset);
+	mpu_calibrateAccel(MPU_ADR_1, &accel_offset);
 }
+
 
 void readGyro() {
 	mpu_readGyro(MPU_ADR_1, &gyro_raw);
