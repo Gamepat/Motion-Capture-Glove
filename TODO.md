@@ -1,6 +1,6 @@
-TODO-File for the µC-Program of the sensorglove
+## TODO-File for the µC-Program of the sensorglove
 
-TODOs:
+### TODOs:
 
 - Flex-Sensors
   * [ ] Read flex-sensor values
@@ -25,7 +25,7 @@ TODOs:
 
 
 
-Optional TODOs:
+### Optional TODOs:
 
 * [ ] Get battery state to warn when battery gets low
 
