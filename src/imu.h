@@ -14,3 +14,4 @@
 
 
 void imuInit();
+void readIMU(axis_float_t *rot_angles);
