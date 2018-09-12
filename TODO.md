@@ -3,7 +3,7 @@
 ### TODOs:
 
 - Flex-Sensors
-  * [ ] Read flex-sensor values
+  * [X] ~~*Read flex-sensor values*~~ [2018-09-12]
   * [ ] Map sensor values to get the range more clearly
 
 - IMU
