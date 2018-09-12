@@ -6,14 +6,22 @@
 #include "imu.h"
 
 
+axis_float_t angles;
+
+
 void setup() {
-  Serial.begin(9600);
-  Serial1.begin(115200);
-  
+  serialInit();
+  initFlex();
+
+  imuInit();
+
 }
 
 
 void loop() {
-  
 
+  readFlex();
+
+  readIMU(&angles);
+  
 }
