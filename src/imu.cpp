@@ -68,3 +68,18 @@ void calculateAngles() {
 	angles.y = GYRO_PART * (angles.y + (rates.y * dt)) + ACCEL_PART *accel_angles.y;
 	//angles.z = GYRO_PART * (angles.z + (rates.z * dt)) + ACCEL_PART *accel_angles.z;		//FIXME
 }
+
+
+void readIMU(axis_float_t *rot_angles) {
+	readGyro();
+	readAccel();
+
+	processGyro();
+	processAccel();
+
+	calculateAngles();
+
+	rot_angles->x = angles.x;
+	rot_angles->y = angles.y;
+	rot_angles->z = angles.z;
+}
