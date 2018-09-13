@@ -5,9 +5,7 @@
 
 [Ryan Boland](https://github.com/bolandrm/rmb_multicopter)
 
----
-
-## Hardware
+## Hardware:
 
 * [Arduino Micro](https://store.arduino.cc/arduino-micro)
 * [Flex Sensors](https://www.sparkfun.com/products/10264)
