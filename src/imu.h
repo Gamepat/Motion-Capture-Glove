@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "lib/types.h"
 
 
 #define MPU_ADR_1 0x68
