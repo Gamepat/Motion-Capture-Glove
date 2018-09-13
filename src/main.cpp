@@ -6,7 +6,7 @@
 #include "imu.h"
 
 
-axis_float_t angles;
+axis_float_t angle;
 
 
 void setup() {
@@ -22,6 +22,6 @@ void loop() {
 
   readFlex();
 
-  readIMU(&angles);
+  readIMU(&angle);
   
 }
