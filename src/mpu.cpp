@@ -52,11 +52,15 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 	axis_int16_t gyro_raw;
 	axis_float_t gyro_sum;
 
+	delay(3000);
+
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readGyro(device_adr, &gyro_raw);
 		gyro_sum.x += gyro_raw.x;
 		gyro_sum.y += gyro_raw.y;
 		gyro_sum.z += gyro_raw.z;
+		
+		delay(1);
 	}
 
 	offset->x = (int16_t)gyro_sum.x / CALIBRATION_PASSES;
@@ -73,13 +77,16 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 void mpu_calibrateAccel(int device_adr, axis_int16_t *offset) {
 	axis_int16_t accel_raw;
 	axis_float_t accel_sum;
-	
+
+	delay(3000);	
 	
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readAccel(device_adr, &accel_raw);
 		accel_sum.x += accel_raw.x;
 		accel_sum.y += accel_raw.y;
 		accel_sum.z += accel_raw.z;
+
+		delay(1);
 	}
 
 	offset->x = (int16_t)accel_sum.x / CALIBRATION_PASSES;
