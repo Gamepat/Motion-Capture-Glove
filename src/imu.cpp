@@ -64,8 +64,8 @@ void calculateAngles() {
 	accel_angles.x = atan2(accel.y, accel.z) * RAD_TO_DEG;
 	accel_angles.y = atan2(-1 * accel.x, sqrt(accel.y * accel.y + accel.z * accel.z)) * RAD_TO_DEG;
 
-	angles.x = GYRO_PART * (angles.x + (rates.x * dt)) + ACCEL_PART *accel_angles.x;
-	angles.y = GYRO_PART * (angles.y + (rates.y * dt)) + ACCEL_PART *accel_angles.y;
+	angles.x = GYRO_PART * (angles.x + (rates.x * dt)) + ACCEL_PART * accel_angles.x;
+	angles.y = GYRO_PART * (angles.y + (rates.y * dt)) + ACCEL_PART * accel_angles.y;
 	//angles.z = GYRO_PART * (angles.z + (rates.z * dt)) + ACCEL_PART *accel_angles.z;		//FIXME
 }
 
