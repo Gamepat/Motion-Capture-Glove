@@ -47,6 +47,8 @@ void processGyro() {
 	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_250D_SENS;
 }
 
+
+// converts the 16Bit raw value into multiples of 1g
 void processAccel() {
 	accel.x = (float)(accel_raw.x - accel_offset.x) / ACCEL_2G_SENS;
 	accel.y = (float)(accel_raw.y - accel_offset.y) / ACCEL_2G_SENS;
