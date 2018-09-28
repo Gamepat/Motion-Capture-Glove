@@ -41,12 +41,12 @@ void readAccel() {
 }
 
 
+// converts the 16Bit raw value into °/s
 void processGyro() {
 	rates.x = (float)(gyro_raw.x - gyro_offset.x) / GYRO_250D_SENS;
 	rates.y = (float)(gyro_raw.y - gyro_offset.y) / GYRO_250D_SENS;
 	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_250D_SENS;
 }
-
 
 // converts the 16Bit raw value into multiples of 1g
 void processAccel() {
@@ -57,7 +57,6 @@ void processAccel() {
 
 
 void calculateAngles() {
-
 	// TODO: Replace this with the Madgwick-Algorithm
 
 	float dt = (float)((micros() - last_update) / 1000000);
@@ -68,7 +67,7 @@ void calculateAngles() {
 
 	angles.x = GYRO_PART * (angles.x + (rates.x * dt)) + ACCEL_PART * accel_angles.x;
 	angles.y = GYRO_PART * (angles.y + (rates.y * dt)) + ACCEL_PART * accel_angles.y;
-	//angles.z = GYRO_PART * (angles.z + (rates.z * dt)) + ACCEL_PART *accel_angles.z;		//FIXME
+	//angles.z = GYRO_PART * (angles.z + (rates.z * dt)) + ACCEL_PART * accel_angles.z;		//FIXME
 }
 
 
