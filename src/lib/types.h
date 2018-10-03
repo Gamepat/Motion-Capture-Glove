@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#define DEBUG 0
+#define BT 1
 
 typedef struct {
   int16_t x, y, z;
