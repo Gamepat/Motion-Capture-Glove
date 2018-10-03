@@ -27,6 +27,8 @@ void mpu_readGyro(int device_adr, axis_int16_t *gyro_data) {
 	int16_t gyro_y = Wire.read() << 8 | Wire.read();
 	int16_t gyro_z = Wire.read() << 8 | Wire.read();
 
+	delay(5);
+
 	// store data
   gyro_data->x = gyro_x;
   gyro_data->y = gyro_y;
@@ -44,6 +46,8 @@ void mpu_readAccel(int device_adr, axis_int16_t *accel_data) {
 	int16_t accel_x = Wire.read() << 8 | Wire.read();
 	int16_t accel_y = Wire.read() << 8 | Wire.read();
 	int16_t accel_z = Wire.read() << 8 | Wire.read();
+	
+	delay(5);
 
 	// store data
   accel_data->x = accel_x;
