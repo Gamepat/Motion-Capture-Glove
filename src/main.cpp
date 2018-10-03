@@ -23,5 +23,10 @@ void loop() {
   readFlex();
 
   readIMU(&angle);
-  
+
+  Serial.println(angle.x);
+  Serial.println(angle.y);
+  Serial.println(angle.z);
+
+  delay(20);
 }
