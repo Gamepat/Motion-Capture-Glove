@@ -4,7 +4,7 @@
 #include "lib/types.h"
 
 
-#define CALIBRATION_PASSES 10000
+#define CALIBRATION_PASSES 1000
 
 
 #define GYRO_250D_SENS 131
