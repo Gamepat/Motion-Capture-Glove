@@ -64,6 +64,8 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readGyro(device_adr, &gyro_raw);
+
+		delay(1);
 		gyro_sum.x += gyro_raw.x;
 		gyro_sum.y += gyro_raw.y;
 		gyro_sum.z += gyro_raw.z;
@@ -71,9 +73,9 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 		delay(1);
 	}
 
-	offset->x = (int16_t)gyro_sum.x / CALIBRATION_PASSES;
-	offset->y = (int16_t)gyro_sum.y / CALIBRATION_PASSES;
-	offset->z = (int16_t)gyro_sum.z / CALIBRATION_PASSES;
+	offset->x = (int16_t)(gyro_sum.x / CALIBRATION_PASSES);
+	offset->y = (int16_t)(gyro_sum.y / CALIBRATION_PASSES);
+	offset->z = (int16_t)(gyro_sum.z / CALIBRATION_PASSES);
 
 	Serial.println("Gyro-Calibration finished.");
 	Serial.println(gyro_sum.x / CALIBRATION_PASSES);
