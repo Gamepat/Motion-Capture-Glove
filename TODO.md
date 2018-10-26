@@ -1,4 +1,4 @@
-## TODO-File for the µC-Program of the sensorglove
+## TODO
 
 ### TODOs:
 
@@ -13,7 +13,7 @@
 
   * [X] ~~*Read gyroscope and accelerometer values*~~ [2018-08-25]
   
-  * [ ] Calculate offsets
+  * [X] ~~*Calculate offsets*~~ [2018-10-11]
   
   * [X] ~~*Calculate values in °/s for gyroscope*~~ [2018-08-25]
   
