@@ -56,55 +56,57 @@ void mpu_readAccel(int device_adr, axis_int16_t *accel_data) {
 }
 
 
+// calculates the offset values by measuring the arithmetic mean 
 void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 	axis_int16_t gyro_raw;
-	axis_float_t gyro_sum;
+	axis_double_t gyro_sum = {0, 0, 0};
 
+	Serial.println("Started Gyro calibration");
 	delay(3000);
 
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readGyro(device_adr, &gyro_raw);
 
-		delay(1);
-		gyro_sum.x += gyro_raw.x;
-		gyro_sum.y += gyro_raw.y;
-		gyro_sum.z += gyro_raw.z;
-		
-		delay(1);
+		delay(5);
+		gyro_sum.x += (double)gyro_raw.x;
+		gyro_sum.y += (double)gyro_raw.y;
+		gyro_sum.z += (double)gyro_raw.z;
 	}
-
-	offset->x = (int16_t)(gyro_sum.x / CALIBRATION_PASSES);
-	offset->y = (int16_t)(gyro_sum.y / CALIBRATION_PASSES);
-	offset->z = (int16_t)(gyro_sum.z / CALIBRATION_PASSES);
-
+	
 	Serial.println("Gyro-Calibration finished.");
 	Serial.println(gyro_sum.x / CALIBRATION_PASSES);
 	Serial.println(gyro_sum.y / CALIBRATION_PASSES);
 	Serial.println(gyro_sum.z / CALIBRATION_PASSES);
+
+	offset->x = (int16_t)(gyro_sum.x / CALIBRATION_PASSES);
+	offset->y = (int16_t)(gyro_sum.y / CALIBRATION_PASSES);
+	offset->z = (int16_t)(gyro_sum.z / CALIBRATION_PASSES);
 }
 
 
+// calculates the offset values by measuring the arithmetic mean 
 void mpu_calibrateAccel(int device_adr, axis_int16_t *offset) {
 	axis_int16_t accel_raw;
-	axis_float_t accel_sum;
+	axis_double_t accel_sum = {0, 0, 0};
 
+	Serial.println("Started Accel calibration");
 	delay(3000);	
 	
 	for(int i = 0; i < CALIBRATION_PASSES; i++) {
 		mpu_readAccel(device_adr, &accel_raw);
-		accel_sum.x += accel_raw.x;
-		accel_sum.y += accel_raw.y;
-		accel_sum.z += accel_raw.z;
-
-		delay(1);
+		
+		delay(5);
+		accel_sum.x += (double)accel_raw.x;
+		accel_sum.y += (double)accel_raw.y;
+		accel_sum.z += (double)accel_raw.z;
 	}
 
-	offset->x = (int16_t)accel_sum.x / CALIBRATION_PASSES;
-	offset->y = (int16_t)accel_sum.y / CALIBRATION_PASSES;
-	offset->z = (int16_t)(accel_sum.z / CALIBRATION_PASSES) - ACCEL_2G_SENS;	
-	
 	Serial.println("Accel-Calibration finished.");
 	Serial.println(accel_sum.x / CALIBRATION_PASSES);
 	Serial.println(accel_sum.y / CALIBRATION_PASSES);
 	Serial.println((accel_sum.z / CALIBRATION_PASSES) - ACCEL_2G_SENS);
+
+	offset->x = (int16_t)(accel_sum.x / CALIBRATION_PASSES);
+	offset->y = (int16_t)(accel_sum.y / CALIBRATION_PASSES);
+	offset->z = (int16_t)((accel_sum.z / CALIBRATION_PASSES) - ACCEL_2G_SENS);
 }
