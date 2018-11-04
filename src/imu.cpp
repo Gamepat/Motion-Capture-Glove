@@ -17,7 +17,6 @@ axis_int16_t accel_offset = {968, -66, -588};
 axis_float_t rates;
 axis_float_t accel;
 
-float tot_vect;
 axis_float_t gyro_angles;
 axis_float_t accel_angles;
 
@@ -65,7 +64,7 @@ void processAccel() {
 void calcGyroAngles() {
 	float dt = (float)(micros() - last_update) / 1000000.0;			// calculates the time since last measurement in seconds
 
-	gyro_angles.x += rates.x * dt;
+	gyro_angles.x -= rates.x * dt;
 	gyro_angles.y += rates.y * dt;
 	gyro_angles.z += rates.z * dt;
 
@@ -77,8 +76,9 @@ void calcGyroAngles() {
 
 // calculates angles from the accelerometer data
 void calcAccelAngles() {
-	accel_angles.x = atan2(accel.y, accel.z) * RAD_TO_DEG;
+	accel_angles.x = atan2(-1 * accel.y, sqrt(accel.x * accel.x + accel.z * accel.z)) * RAD_TO_DEG;
 	accel_angles.y = atan2(-1 * accel.x, sqrt(accel.y * accel.y + accel.z * accel.z)) * RAD_TO_DEG;
+	// accel_angles.z = atan2(sqrt(accel.x * accel.x + accel.y * accel.y), accel.z) * RAD_TO_DEG;
 }
 
 
@@ -89,18 +89,18 @@ void calculateAngles() {
 	if (started) {
 		angles.x = GYRO_PART * gyro_angles.x + ACCEL_PART * accel_angles.x;
 		angles.y = GYRO_PART * gyro_angles.y + ACCEL_PART * accel_angles.y;
-		// angles.z = GYRO_PART * gyro_angles.z + ACCEL_PART * accel_angles.z;		//FIXME
-	}
-	else {
+		// angles.z = GYRO_PART * gyro_angles.z + ACCEL_PART * accel_angles.z;
+	} else {
 		angles.x = accel_angles.x;
 		angles.y = accel_angles.y;
-		angles.z = accel_angles.z;
+		// angles.z = accel_angles.z;
 
 		started = true;
 	}
 }
 
 
+// read and process imu data and return the angles
 void readIMU(axis_float_t *rot_angles) {
 	readGyro();
 	readAccel();
