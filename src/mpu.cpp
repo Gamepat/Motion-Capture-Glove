@@ -71,8 +71,14 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 		gyro_sum.x += (double)gyro_raw.x;
 		gyro_sum.y += (double)gyro_raw.y;
 		gyro_sum.z += (double)gyro_raw.z;
+
+		// Progress bar
+		if(!(i % (CALIBRATION_PASSES / 100))){
+			Serial.print("▒");
+		}
 	}
 	
+	Serial.println();
 	Serial.println("Gyro-Calibration finished.");
 	Serial.println(gyro_sum.x / CALIBRATION_PASSES);
 	Serial.println(gyro_sum.y / CALIBRATION_PASSES);
@@ -99,8 +105,14 @@ void mpu_calibrateAccel(int device_adr, axis_int16_t *offset) {
 		accel_sum.x += (double)accel_raw.x;
 		accel_sum.y += (double)accel_raw.y;
 		accel_sum.z += (double)accel_raw.z;
+
+		// Progress bar
+		if(!(i % (CALIBRATION_PASSES / 100))){
+			Serial.print("▒");
+		}
 	}
 
+	Serial.println();
 	Serial.println("Accel-Calibration finished.");
 	Serial.println(accel_sum.x / CALIBRATION_PASSES);
 	Serial.println(accel_sum.y / CALIBRATION_PASSES);
