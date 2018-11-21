@@ -5,7 +5,7 @@
 - Flex-Sensors
   * [X] ~~*Read flex-sensor values*~~ [2018-09-12]
   
-  * [ ] Map sensor values to get the range more clearly
+  * [ ] Map sensor values to get angle values
 
 - IMU
 
@@ -19,12 +19,14 @@
   
   * [X] ~~*Calculate angles*~~ [2018-08-25]
 
-  * [ ] Replace current angle calculations with the Madgwick-algorithm 
+  * [ ] Fix angle calculations
+
+  * [X] ~~*Add progress bar to calibration*~~ [2018-11-21]
 
 
 * [ ] Sort the measured values and prepare to send
 
-* [ ] Send values over Serial
+* [X] ~~*Send values over Serial*~~ [2018-11-21]
 
 
 ---
