@@ -70,8 +70,8 @@ void calcGyroAngles() {
 
 	last_update = micros();
 
-	// gyro_angles.x += gyro_angles.y * sin(rates.z * dt * DEG_TO_RAD);
-	// gyro_angles.y -= gyro_angles.x * sin(rates.z * dt * DEG_TO_RAD);
+	gyro_angles.x -= gyro_angles.y * sin(rates.z * dt * DEG_TO_RAD);
+	gyro_angles.y += gyro_angles.x * sin(rates.z * dt * DEG_TO_RAD);
 }
 
 // calculates angles from the accelerometer data
