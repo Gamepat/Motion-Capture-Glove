@@ -11,6 +11,4 @@ const uint8_t flex_pins[SENS_AMO] = {
 
 
 void initFlex();
-void readRawFlex();
-void calcFlex();
-void calibrateFlex();
+void readFlex();
