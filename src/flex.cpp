@@ -18,7 +18,7 @@ int16_t flexAngles[SENS_AMO];
 void calibrateFlex();
 
 
-// Setup for Flex-Sensors
+//* Setup for Flex-Sensors
 void initFlex() {
   // set the Arduino pins to INPUT
   for(int i = 0; i < 10; i++) {
@@ -31,7 +31,7 @@ void initFlex() {
 }
 
 
-// Measures the values for the flex-Sensors
+//* Measures the values for the flex-Sensors
 void getRawFlex() {
   for (int i = 0; i < 10; i++) {
     flexValues[i] = analogRead(flex_pins[i]);
@@ -43,7 +43,7 @@ void getRawFlex() {
 }
 
 
-// Map the input values to get an angle
+//* Map the input values to get an angle
 void calcFlex() {
   for(int i = 0; i < 10; i++) {
     flexAngles[i] = map(flexValues[i], cal_straight_val[i], cal_bend_val[i], 0, 90);
@@ -52,14 +52,14 @@ void calcFlex() {
 }
 
 
-// Read the flex-sensors and convert the raw values into angles
+//* Read the flex-sensors and convert the raw values into angles
 void readFlex() {
   getRawFlex();
   calcFlex();
 }
 
 
-// Calibrates the range of the Flex-Sensors
+//* Calibrates the range of the Flex-Sensors
 void calibrateFlex() {
   Serial.println("Calibration started.");
 

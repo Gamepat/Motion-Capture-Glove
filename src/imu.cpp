@@ -26,7 +26,7 @@ axis_float_t angles;
 float last_update = 0.0;
 
 
-// initialize the IMU and run calibration
+//* initialize the IMU and run calibration
 void imuInit() {
 	mpu_init(MPU_ADR_1);
 
@@ -45,14 +45,14 @@ void readAccel() {
 }
 
 
-// converts the 16Bit raw value into °/s
+//* converts the 16Bit raw value into °/s
 void processGyro() {
 	rates.x = (float)(gyro_raw.x - gyro_offset.x) / GYRO_250D_SENS;
 	rates.y = (float)(gyro_raw.y - gyro_offset.y) / GYRO_250D_SENS;
 	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_250D_SENS;
 }
 
-// converts the 16Bit raw value into multiples of 1g
+//* converts the 16Bit raw value into multiples of 1g
 void processAccel() {
 	accel.x = (float)(accel_raw.x - accel_offset.x) / ACCEL_2G_SENS;
 	accel.y = (float)(accel_raw.y - accel_offset.y) / ACCEL_2G_SENS;
@@ -60,7 +60,7 @@ void processAccel() {
 }
 
 
-// calculates angles from the gyroscope data
+//* calculates angles from the gyroscope data
 void calcGyroAngles() {
 	float dt = (float)(micros() - last_update) / 1000000.0;			// calculates the time since last measurement in seconds
 
@@ -74,7 +74,7 @@ void calcGyroAngles() {
 	gyro_angles.y += gyro_angles.x * sin(rates.z * dt * DEG_TO_RAD);
 }
 
-// calculates angles from the accelerometer data
+//* calculates angles from the accelerometer data
 void calcAccelAngles() {
 	accel_angles.x = atan2(-1 * accel.y, sqrt(accel.x * accel.x + accel.z * accel.z)) * RAD_TO_DEG;
 	accel_angles.y = atan2(-1 * accel.x, sqrt(accel.y * accel.y + accel.z * accel.z)) * RAD_TO_DEG;
@@ -82,7 +82,7 @@ void calcAccelAngles() {
 }
 
 
-// combines the two previous calculated angles to get a more stable output
+//* combines the two previous calculated angles to get a more stable output
 void calculateAngles() {
 
 	// use the angles calculated from the accelerometer data for startup, then switch to the complementary filter
@@ -100,7 +100,7 @@ void calculateAngles() {
 }
 
 
-// read and process imu data and return the angles
+//* read and process imu data and return the angles
 void readIMU(axis_float_t *rot_angles) {
 	readGyro();
 	readAccel();
