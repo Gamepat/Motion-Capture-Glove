@@ -2,12 +2,14 @@
 
 #include <Arduino.h>
 #include "lib/types.h"
+#include "mpu.h"
 
 
-#define MPU_ADR_1 0x68
+#define MPU_ADR_1 0x69
 #define MPU_ADR_2 0x69
 
-
+#define GYRO_SENS GYRO_250D_SENS
+#define ACCEL_SENS ACCEL_2G_SENS
 
 
 #define GYRO_PART 0.995

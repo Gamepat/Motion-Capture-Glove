@@ -1,6 +1,7 @@
 #include "imu.h"
 #include "lib/types.h"
 #include "mpu.h"
+#include "quaternion_filters.h"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -32,6 +33,7 @@ void imuInit() {
 
 	Serial.println("Started calibration");
 	mpu_calibrateGyro(MPU_ADR_1, &gyro_offset);
+
 	mpu_calibrateAccel(MPU_ADR_1, &accel_offset);
 }
 
@@ -47,16 +49,16 @@ void readAccel() {
 
 //* converts the 16Bit raw value into °/s
 void processGyro() {
-	rates.x = (float)(gyro_raw.x - gyro_offset.x) / GYRO_250D_SENS;
-	rates.y = (float)(gyro_raw.y - gyro_offset.y) / GYRO_250D_SENS;
-	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_250D_SENS;
+	rates.x = (float)(gyro_raw.x - gyro_offset.x) / GYRO_SENS;
+	rates.y = (float)(gyro_raw.y - gyro_offset.y) / GYRO_SENS;
+	rates.z = (float)(gyro_raw.z - gyro_offset.z) / GYRO_SENS;
 }
 
 //* converts the 16Bit raw value into multiples of 1g
 void processAccel() {
-	accel.x = (float)(accel_raw.x - accel_offset.x) / ACCEL_2G_SENS;
-	accel.y = (float)(accel_raw.y - accel_offset.y) / ACCEL_2G_SENS;
-	accel.z = (float)(accel_raw.z - accel_offset.z) / ACCEL_2G_SENS;
+	accel.x = (float)(accel_raw.x - accel_offset.x) / ACCEL_SENS;
+	accel.y = (float)(accel_raw.y - accel_offset.y) / ACCEL_SENS;
+	accel.z = (float)(accel_raw.z - accel_offset.z) / ACCEL_SENS;
 }
 
 
@@ -100,6 +102,17 @@ void calculateAngles() {
 }
 
 
+void calcQuaternionAngles() {
+	float dt = (float)(micros() - last_update) / 1000000.0;
+	last_update = micros();
+
+	madgwick_quaternion_update(&angles, dt, 
+		accel.x, accel.y, accel.z,
+		rates.x * DEG_TO_RAD, rates.y * DEG_TO_RAD, rates.z * DEG_TO_RAD
+	);
+}
+
+
 //* read and process imu data and return the angles
 void readIMU(axis_float_t *rot_angles) {
 	readGyro();
@@ -111,6 +124,22 @@ void readIMU(axis_float_t *rot_angles) {
 	calcGyroAngles();
 	calcAccelAngles();
 	calculateAngles();
+
+	rot_angles->x = angles.x;
+	rot_angles->y = angles.y;
+	rot_angles->z = angles.z;
+}
+
+
+//* read and process imu data with the quaternion library 
+void readQuaternionIMU(axis_float_t *rot_angles) {
+	readGyro();
+	readAccel();
+
+	processGyro();
+	processAccel();
+
+	calcQuaternionAngles();
 
 	rot_angles->x = angles.x;
 	rot_angles->y = angles.y;
