@@ -102,6 +102,7 @@ void calculateAngles() {
 }
 
 
+//* calculate the rotation angles with the quaternion library
 void calcQuaternionAngles() {
 	float dt = (float)(micros() - last_update) / 1000000.0;
 	last_update = micros();
