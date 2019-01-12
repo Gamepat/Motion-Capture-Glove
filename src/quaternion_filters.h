@@ -1,4 +1,4 @@
-#include "types.h"
+#include "lib/types.h"
 
 void madgwick_quaternion_update(
   axis_float_t *angles,

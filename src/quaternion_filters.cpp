@@ -1,5 +1,4 @@
 #include "quaternion_filters.h"
-#include "utils.h"
 #include "Arduino.h"
 
 float GyroMeasError = PI * (40.0f / 180.0f);     // gyroscope measurement error in rads/s (start at 60 deg/s), then reduce after ~10 s to 3
