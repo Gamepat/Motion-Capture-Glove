@@ -1,4 +1,6 @@
 #include "flex.h"
+#include "lib/types.h"
+#include "serial.h"
 
 #include <Arduino.h>
 
@@ -27,7 +29,6 @@ void initFlex() {
   }
 
   calibrateFlex();
-  Serial1.println();
 }
 
 
@@ -35,10 +36,7 @@ void initFlex() {
 void getRawFlex() {
   for (int i = 0; i < 10; i++) {
     flexValues[i] = analogRead(flex_pins[i]);
-    delay(3);
-    Serial1.print(i+1);
-    Serial1.print(": ");
-    Serial1.println(flexValues[i]);
+    delay(2);
   }
 }
 
@@ -48,6 +46,7 @@ void calcFlex() {
   for(int i = 0; i < 10; i++) {
     flexAngles[i] = map(flexValues[i], cal_straight_val[i], cal_bend_val[i], 0, 90);
     delay(1);
+    serialSend(flexAngles[i], BT);
   }
 }
 
