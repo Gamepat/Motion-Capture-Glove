@@ -1,6 +1,5 @@
 #include "serial.h"
-
-#include <Arduino.h>
+#include "lib/types.h"
 #include <Wire.h>
 
 
