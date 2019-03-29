@@ -2,8 +2,8 @@
 #include <Arduino.h>
 
 
-#define BAUD 115200
-#define BAUD_DEBUG 19200
+#define BAUD 9600
+#define BAUD_DEBUG 38400
 
 
 void serialInit();
