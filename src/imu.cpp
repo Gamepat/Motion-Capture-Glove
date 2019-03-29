@@ -1,7 +1,6 @@
 #include "imu.h"
 #include "lib/types.h"
 #include "mpu.h"
-#include "quaternion_filters.h"
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -102,18 +101,6 @@ void calculateAngles() {
 }
 
 
-//* calculate the rotation angles with the quaternion library
-void calcQuaternionAngles() {
-	float dt = (float)(micros() - last_update) / 1000000.0;
-	last_update = micros();
-
-	madgwick_quaternion_update(&angles, dt, 
-		accel.x, accel.y, accel.z,
-		rates.x * DEG_TO_RAD, rates.y * DEG_TO_RAD, rates.z * DEG_TO_RAD
-	);
-}
-
-
 //* read and process imu data and return the angles
 void readIMU(axis_float_t *rot_angles) {
 	readGyro();
@@ -125,22 +112,6 @@ void readIMU(axis_float_t *rot_angles) {
 	calcGyroAngles();
 	calcAccelAngles();
 	calculateAngles();
-
-	rot_angles->x = angles.x;
-	rot_angles->y = angles.y;
-	rot_angles->z = angles.z;
-}
-
-
-//* read and process imu data with the quaternion library 
-void readQuaternionIMU(axis_float_t *rot_angles) {
-	readGyro();
-	readAccel();
-
-	processGyro();
-	processAccel();
-
-	calcQuaternionAngles();
 
 	rot_angles->x = angles.x;
 	rot_angles->y = angles.y;
