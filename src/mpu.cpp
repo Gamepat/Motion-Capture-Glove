@@ -6,7 +6,7 @@
 
 
 
-// wake up device
+//* wake up device
 void mpu_init(int device_adr) {
   Wire.begin();
   Wire.beginTransmission(device_adr);
@@ -16,7 +16,7 @@ void mpu_init(int device_adr) {
 }
 
 
-// reads 6 bytes of gyro-data from I2C device and stores them 
+//* reads 6 bytes of gyro-data from I2C device and stores them 
 void mpu_readGyro(int device_adr, axis_int16_t *gyro_data) {
   Wire.beginTransmission(device_adr);
   Wire.write(GYRO_XOUT_H);							            // sends request start adress
@@ -36,7 +36,7 @@ void mpu_readGyro(int device_adr, axis_int16_t *gyro_data) {
 }
 
 
-// reads 6 bytes of accel-data from I2C device and stores them 
+//* reads 6 bytes of accel-data from I2C device and stores them 
 void mpu_readAccel(int device_adr, axis_int16_t *accel_data) {
   Wire.beginTransmission(device_adr);
   Wire.write(ACCEL_XOUT_H);													// sends request start adress
@@ -56,7 +56,7 @@ void mpu_readAccel(int device_adr, axis_int16_t *accel_data) {
 }
 
 
-// calculates the offset values by measuring the arithmetic mean 
+//* calculates the offset values by measuring the arithmetic mean 
 void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
   axis_int16_t gyro_raw;
   axis_double_t gyro_sum = {0, 0, 0};
@@ -90,7 +90,7 @@ void mpu_calibrateGyro(int device_adr, axis_int16_t *offset) {
 }
 
 
-// calculates the offset values by measuring the arithmetic mean 
+//* calculates the offset values by measuring the arithmetic mean 
 void mpu_calibrateAccel(int device_adr, axis_int16_t *offset) {
   axis_int16_t accel_raw;
   axis_double_t accel_sum = {0, 0, 0};
